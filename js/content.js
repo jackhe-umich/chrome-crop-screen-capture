@@ -21,7 +21,7 @@ function startScreenshot() { console.log('start screenshot');
 	document.body.style.cursor = 'crosshair';
 
 	document.addEventListener('mousedown', mouseDown, {capture: true});
-	document.addEventListener('keydown', keyDown, {capture: true});
+    // document.addEventListener('keydown', keyDown, {capture: true});
     document.addEventListener('click', clickSuppressor, {capture: true});
 }
  
@@ -46,6 +46,7 @@ function sendMessage(msg) {
  
 var ghostElement, startPos, gCoords, startY;
  
+// REMOVED
 function keyDown(e) {
 	var keyCode = e.keyCode;
 	
