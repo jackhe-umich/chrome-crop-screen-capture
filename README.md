@@ -1,11 +1,10 @@
-Chrome Extension for Crop and Screen Capture
-==========================
+# Screencap Search
 
-A simple Google Chrome extension that takes tgat select area of screen and take screenshot
+This is a simple extension for Google Chrome designed to allow the user to take a screenshot and then perform a reverse image search through various search engines.
 
-Feel free to fork it and modify.
+This is a school project for EECS 441 at the University of Michigan, and the codebase here was originally adapted from [an extension by Parminder Klair](https://github.com/perminder-klair/chrome-crop-screen-capture). Feel free to fork and modify.
 
-### For development:
+## For development
 
 1. Clone this repo
 2. Open up Chrome and go to the extensions page (Window → Extensions)
