@@ -1,7 +1,7 @@
 let green = "#22aa22"
 let red = "#aa2222"
 let page = document.getElementById('buttonDiv');
-const all_engines = ['Google', 'Bing', 'TinEye', 'Sight Engine'];
+const all_engines = ['Google', 'Bing', 'TinEye', 'Yandex', 'IQDB'];
 function constructOptions(engines) {
     for (let item of engines) {
         let button = document.createElement('button');

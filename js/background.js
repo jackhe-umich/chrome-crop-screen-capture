@@ -1,6 +1,6 @@
-const all_engines = ['Google', 'Bing', 'TinEye', 'Sight Engine'];
-chrome.storage.sync.set({engines: all_engines}, function() {
-    console.log("initialized engines to all");
+const default_engines = ['Google', 'Bing', 'TinEye'];
+chrome.storage.sync.set({engines: default_engines}, function() {
+    console.log("initialized engines to default");
 });
 
 var Constants = {
@@ -71,6 +71,28 @@ function sendMessage(msg, tab) {
     chrome.tabs.sendMessage(tab.id, msg, function (response) { });
 };
 
+function displayResults(image, page) {
+    console.log("displaying results");
+    chrome.storage.sync.get(['engines'], function(result) {
+        result.engines.sort();
+        console.log(result.engines);
+        for (let item of result.engines) {
+            console.log(item);
+            if (item == "Google") {
+                chrome.tabs.create({url: "http://images.google.com/searchbyimage?image_url=" + image, active: false});
+            } else if (item == "Bing") {
+                chrome.tabs.create({url: "https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIIRP&sbisrc=UrlPaste&q=imgurl:" + image, active: false});
+            } else if (item == "TinEye") {
+                chrome.tabs.create({url: "https://tineye.com/search?url=" + image, active: false});
+            } else if (item == "IQDB") {
+                chrome.tabs.create({url: "https://iqdb.org/?url=" + image, active: false});
+            } else if (item == "Yandex") {
+                chrome.tabs.create({url: "https://yandex.com/images/search?url=" + image, active: false});
+            }
+        }
+    })
+}
+
 function saveFile(dataURI) {
 
     // convert base64 to raw binary data held in a string
@@ -127,11 +149,7 @@ function saveFile(dataURI) {
                     }
                     if (response.success === true) {
                         var get_link = response.data.link.replace(/^http:\/\//i, 'https://');
-                        chrome.tabs.create({url: "../html/results.html"}, function(tab) {
-                            chrome.tabs.sendMessage(tab.id, {img_url: get_link}, function(response) {
-                                console.log("received response (don't care about it)");
-                            })
-                        });
+                        displayResults(get_link);
                     }
             }
         };
