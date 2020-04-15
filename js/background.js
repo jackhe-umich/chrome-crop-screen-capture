@@ -1,3 +1,8 @@
+const all_engines = ['Google', 'Bing', 'TinEye', 'Sight Engine'];
+chrome.storage.sync.set({engines: all_engines}, function() {
+    console.log("initialized engines to all");
+});
+
 var Constants = {
     w: 500,
     h: 500,
