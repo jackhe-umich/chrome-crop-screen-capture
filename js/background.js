@@ -1,6 +1,13 @@
 const default_engines = ['Google', 'Bing', 'TinEye'];
-chrome.storage.sync.set({engines: default_engines}, function() {
+const default_cancel = 27;
+chrome.storage.sync.set({engines: default_engines, cancelKeyCode: default_cancel}, function() {
     console.log("initialized engines to default");
+});
+
+chrome.runtime.onInstalled.addListener(function (object) {
+    chrome.tabs.create({url: "../html/options.html"}, function (tab) {
+        console.log("New tab launched with options");
+    });
 });
 
 var Constants = {

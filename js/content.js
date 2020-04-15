@@ -21,20 +21,34 @@ function startScreenshot() { console.log('start screenshot');
 	document.body.style.cursor = 'crosshair';
 
 	document.addEventListener('mousedown', mouseDown, {capture: true});
-    // document.addEventListener('keydown', keyDown, {capture: true});
+    document.addEventListener('keydown', keyDownCancel, {capture: true});
     document.addEventListener('click', clickSuppressor, {capture: true});
 }
  
 function endScreenshot(coords) {
+	//change cursor back to default
+	document.body.style.cursor = 'default';
 	document.removeEventListener('mousedown', mouseDown, {capture: true});
-    document.removeEventListener('click', clickSuppressor, {capture: true})
+    document.removeEventListener('keydown', keyDownCancel, {capture: true});
+    document.removeEventListener('click', clickSuppressor, {capture: true});
 	
 	sendMessage({type: 'coords', coords: coords});
 }
- 
-function sendMessage(msg) {
+
+function cancelScreenshot() {
 	//change cursor back to default
 	document.body.style.cursor = 'default';
+	document.removeEventListener('mousedown', mouseDown, {capture: true});
+    document.removeEventListener('keydown', keyDownCancel, {capture: true});
+	document.removeEventListener('click', clickSuppressor, {capture: true});
+	
+	document.removeEventListener('mousemove', mouseMove, {capture: true});
+	document.removeEventListener('mouseup', mouseUp, {capture: true});
+	
+	ghostElement.parentNode.removeChild(ghostElement);
+}
+ 
+function sendMessage(msg) {
 
 	console.log('sending message with screenshoot');
 	chrome.runtime.sendMessage(msg, function(response) {});
@@ -47,18 +61,15 @@ function sendMessage(msg) {
 var ghostElement, startPos, gCoords, startY;
  
 // REMOVED
-function keyDown(e) {
+function keyDownCancel(e) {
 	var keyCode = e.keyCode;
-	
-	// Hit: n
-	if ( keyCode == '78' && gCoords ) {
-		e.preventDefault();
-		e.stopPropagation();
-		
-		endScreenshot(gCoords);
-		
-		return false;
-	}
+	chrome.storage.sync.get(['cancelKeyCode'], function(result) {
+		if (result.cancelKeyCode == keyCode) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			cancelScreenshot();
+		}
+	});
 }
 
 function clickSuppressor(e) {

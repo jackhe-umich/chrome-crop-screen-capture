@@ -2,21 +2,79 @@
 <html>
     <head>
         <style>
-button {
-    height: 30px;
-    outline: none;
-    margin: 10px;
-    color: white
-}
+            button {
+                height: 2rem;
+                outline: none;
+                margin: 3px 10px;
+                color: whitesmoke;
+                border: 1px solid grey;
+                border-radius: 2px;
+            }
+
+            html, body {
+                height: 100%;
+                background-color: #2e3436;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .container {
+                padding: 1.5rem;
+                width: 50%;
+                height: 100%;
+                margin: 0px auto;
+                background-color: white;
+                border: 2px solid grey; 
+            }
+
+            #cancelBox {
+                margin: 3px 10px;
+                height: 2rem;
+                width: 50px;
+                background-color: #cccccc;
+                border: 2px solid grey; 
+            }
+
+            #cancelKey {
+                padding: 0.5rem 5px;
+            }
+
+            .top {
+                display: flex;
+                justify-content: space-between;
+            }
         </style>
     </head>
     <body>
-        <div id="buttonDiv">
-        </div>
-        <div>
-            <p>Choose which search engines to use.</p>
+        <div class="container">
+            <div class="top">
+                <div style="display: inline-block; margin-right: auto">
+                    <h1>
+                        Screencap Search Options
+                    </h1>
+                </div>
+                <div style="display: inline-block; margin-left: auto">
+                    <img src="../img/new_icon128.png" alt="Logo" width=50px>
+                </div>
+            </div>
+            
+            <h2>Usage</h2>
+            <p>
+                Screencap Search allows you to take a screenshot and immediately perform a reverse image search. 
+                Simply click the extension, and then click and drag to select an area to take a screenshot.
+            </p>
+            <p>
+                To access this options page again, right click on the extension and select Options.
+            </p>
+            <h2>Select Search Engines</h2>
+            <div id="buttonDiv"></div>
+            <h2>Select Cancel Key</h2>
+            <div id="cancelBox">
+                <div id="cancelKey"></div>
+            </div>
         </div>
     </body>
+    <script src="../js/keyevent.js"></script>
     <script src="../js/options.js"></script>
 </html>
 
