@@ -127,7 +127,11 @@ function saveFile(dataURI) {
                     }
                     if (response.success === true) {
                         var get_link = response.data.link.replace(/^http:\/\//i, 'https://');
-                        window.open("https://images.google.com/searchbyimage?image_url=" + get_link);
+                        chrome.tabs.create({url: "../html/results.html"}, function(tab) {
+                            chrome.tabs.sendMessage(tab.id, {img_url: get_link}, function(response) {
+                                console.log("received response (don't care about it)");
+                            })
+                        });
                     }
             }
         };
